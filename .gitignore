@@ -1,0 +1,7 @@
+library/library/secret_key.py
+__pycache__/
+*.txt
+*.zip
+*.jpg
+.env
+.vscode/
