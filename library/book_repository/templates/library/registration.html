@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Регистрация пользователя</title>
+    {% load static %}
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="{% static 'style.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          id="bootstrap-css">
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="" id="icon" alt="Lib Icon" />
+          </div>
+          <form method="post">                             
+            {{ form.username }}
+            {{ form.email }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+            {% csrf_token %}
+            <input type="submit" class="fadeIn fourth" value="Зарегистрироваться">
+          </form>
+          <div id="formFooter">
+            <a class="underlineHover" href="{% url 'login' %}">Вход</a> /
+            <a class="underlineHover" href="{% url 'mainpage' %}">Главная страница</a>
+          </div>
+      
+        </div>
+      </div>
+</body>

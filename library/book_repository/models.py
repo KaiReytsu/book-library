@@ -1,7 +1,8 @@
-from django.db import models
-from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from django.db import models
 from django.utils.translation import gettext_lazy
+
 
 class Author(models.Model):
     class Meta:
@@ -13,7 +14,7 @@ class Author(models.Model):
     date_of_death = models.DateField('Дата смерти', validators=[
                                     RegexValidator('((0?[1-9])|([12]\d)|(3[01]))\.((0?[1-9])|(1[0-2]))\.(1[0-9]{3})|(20[01]\d)|(202[0-2])')
                                         ], null=True, blank=True)
-    author_photo = models.ImageField(verbose_name='Фотография автора',upload_to = 'images/', null=True, blank=True)
+    #author_photo = models.ImageField(verbose_name='Фотография автора',upload_to = 'images/', null=True, blank=True)
 
 class Genre(models.Model):
     class Meta:
@@ -38,7 +39,7 @@ class Book(models.Model):
     
     book_name = models.CharField('Наименование', max_length=100)
     book_description = models.CharField('Описание книги', max_length=1000)
-    book_image = models.ImageField(verbose_name='Обложка книги',upload_to = 'images/')
+    #book_image = models.ImageField(verbose_name='Обложка книги',upload_to = 'images/')
     books_in_stock = models.PositiveIntegerField('Количество книг в библиотеке')
     publication_year = models.PositiveIntegerField('Год публикации')
     publication_language = models.CharField('Язык издания', max_length=20)

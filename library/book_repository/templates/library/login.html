@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Вход</title>
+    {% load static %}
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="{% static 'style.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          id="bootstrap-css">
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="" id="icon" alt="Lib Icon" />
+          </div>
+          <form method="post">                             
+            {{form.username}}
+            {{ form.password }}
+            {% csrf_token %}
+            <input type="submit" class="fadeIn fourth" value="Вход">
+          </form>
+          <div id="formFooter">
+            <a class="underlineHover" href="{% url 'registration' %}">Регистрация</a> /
+            <a class="underlineHover" href="{% url 'mainpage' %}">Главная страница</a>
+          </div>
+      
+        </div>
+      </div>
+</body>

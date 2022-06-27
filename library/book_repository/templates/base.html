@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- {% load static %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" 
+        type="text/css" 
+        href="{% static 'style.css' %}">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <header>
+        <p><a href="{% url 'login'%}">Выйти</a></p>
+    </header>
+    {% else %}
+    <header>
+        <p>
+         <a href="{% url 'login' %}">Вход</a>/
+        <a href="{% url 'registration' %}">Регистрация</a>
+        </p>
+    </header>
+    {% endif %}
+    <div>
+        
+        {% block content %}
+        <h1>Добро пожаловать!</h1>
+        {% endblock %}
+    </div>
+</body>
+</html>

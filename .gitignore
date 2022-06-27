@@ -1,4 +1,6 @@
 library/library/secret_key.py
+library/psql_tests.py
+library/lib.json
 __pycache__/
 *.txt
 *.zip
