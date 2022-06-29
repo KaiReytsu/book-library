@@ -5,33 +5,39 @@ from django.core.validators import RegexValidator
 
 
 class SignUpForm(UserCreationForm):
-    username_regex = RegexValidator(regex='[a-zA-Z]+[0-9]*|[а-яёА-ЯЁ]+[0-9]*')
+    username_regex_name = RegexValidator(
+        regex='[a-zA-Z]+|[а-яёА-ЯЁ]+', 
+        message='Логин должен содержать латинские буквы или кирилицу')
+    username_regex_len = RegexValidator(
+        regex='([a-zA-Z]*|[а-яёА-ЯЁ]*){3,21}', 
+        message='Минимальная длина логина должна быть не менее 3 символов')
     username = forms.CharField(
-        validators=[username_regex], 
+        validators=[username_regex_name, username_regex_len],
+        label='',
         max_length=20, 
         widget=forms.TextInput(
             attrs={
                     'class': 'fadeIn second', 
-                    'placeholder': 'Логин'}), 
-        help_text='Логин может содержать латинские буквы или кирилицу, а так же цифры')
+                    'placeholder': 'Логин'}))
     email=forms.EmailField(
-        max_length=50, 
+        max_length=50,
+        label='',
         widget=forms.TextInput(
             attrs={
                     'class': 'fadeIn second', 
-                    'placeholder': 'Email'}),
-        help_text='Email формата name@name.com')
+                    'placeholder': 'Email'}))
     password1=forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                     'class': 'fadeIn third', 
-                    'placeholder': 'Пароль'}))
+                    'placeholder': 'Пароль'}),
+        label='')
     password2=forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                     'class': 'fadeIn third', 
                     'placeholder': 'Повторите пароль'}),
-        help_text='Повторите введенный выше пароль')
+        label='')
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -39,9 +45,21 @@ class SignUpForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=20,
-        widget=forms.TextInput(attrs={'class': 'fadeIn second', 'id': 'login', 'name': 'login', 'placeholder': 'Логин'}))
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                    'class': 'fadeIn second', 
+                    'id': 'login', 
+                    'name': 'login', 
+                    'placeholder': 'Логин'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'fadeIn third', 'id': 'password', 'name': 'login', 'placeholder': 'Пароль'})
+        label='',
+        widget=forms.PasswordInput(
+            attrs={
+                    'class': 'fadeIn third', 
+                    'id': 'password', 
+                    'name': 'login', 
+                    'placeholder': 'Пароль'})
     )
     class Meta():
         model = User

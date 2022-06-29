@@ -26,6 +26,13 @@ html {
     margin: 40px 8px 10px 8px; 
     color: #cccccc;
   }
+label:empty{
+    display: none;
+}
+.errorlist{
+    list-style-type: none;
+    width: 89%;
+}
   
   
   
@@ -150,7 +157,7 @@ html {
   /* ANIMATIONS */
   
   /* Simple CSS3 Fade-in-down Animation */
-  .fadeInDown {
+  /* .fadeInDown {
     -webkit-animation-name: fadeInDown;
     animation-name: fadeInDown;
     -webkit-animation-duration: 1s;
@@ -184,9 +191,9 @@ html {
       transform: none;
     }
   }
-  
+   */
   /* Simple CSS3 Fade-in Animation */
-  @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  /* @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   
@@ -227,10 +234,10 @@ html {
     -webkit-animation-delay: 1s;
     -moz-animation-delay: 1s;
     animation-delay: 1s;
-  }
+  } */
   
   /* Simple CSS3 Fade-in Animation */
-  .underlineHover:after {
+  /* .underlineHover:after {
     display: block;
     left: 0;
     bottom: -10px;
@@ -247,7 +254,7 @@ html {
   
   .underlineHover:hover:after{
     width: 100%;
-  }
+  } */
   
   
   

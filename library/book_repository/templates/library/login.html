@@ -21,8 +21,7 @@
             <img src="" id="icon" alt="Lib Icon" />
           </div>
           <form method="post">                             
-            {{form.username}}
-            {{ form.password }}
+            {{form}}
             {% csrf_token %}
             <input type="submit" class="fadeIn fourth" value="Вход">
           </form>

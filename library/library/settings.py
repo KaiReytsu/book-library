@@ -15,12 +15,17 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .secret_key import SECRET_KEY
+from .secret_key import MY_PASS, SECRET_KEY
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+EMAIL_PORT = 465
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'kai.reytsu'
+EMAIL_HOST_PASSWORD = MY_PASS
+EMAIL_USE_SSL = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -73,7 +78,9 @@ TEMPLATES = [
         },
     },
 ]
-
+AUTHENTICATION_BACKENDS = [
+     'django.contrib.auth.backends.ModelBackend'
+]
 WSGI_APPLICATION = 'library.wsgi.application'
 
 LOGIN_REDIRECT_URL = 'user'
@@ -116,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 

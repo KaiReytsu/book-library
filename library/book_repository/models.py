@@ -96,3 +96,5 @@ class FavouritesGenre(models.Model):
     
     user = models.ForeignKey(User, verbose_name='Избранное пользователя', on_delete=models.CASCADE)
     genre = models.ForeignKey(Genre, verbose_name='Избранный жанр', on_delete=models.CASCADE)
+
+User._meta.get_field('email')._unique = True
