@@ -41,6 +41,12 @@ class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+    
+    def clean_username(self):
+        username = self.cleaned_data.get('username')  
+        lowercase_username = username.lower()         
+
+        return lowercase_username
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -64,3 +70,8 @@ class LoginForm(AuthenticationForm):
     class Meta():
         model = User
         fields = ['username', 'password']
+
+    # first_name = forms.CharField(max_length=50)
+    # last_name=forms.CharField(max_length=50)
+    # phone_regex = RegexValidator(regex=r'(\+[7])|[8]\(?\d{3,4}\)?(((\d\-?){5,8})|((\d\ ?){7,8}))\d$', message="Номер телефона должен быть в формате: '+7(999)9999999'")
+    # phone_number = forms.CharField(validators=[phone_regex], max_length=14, label='Номер телефона')

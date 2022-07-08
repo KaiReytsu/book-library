@@ -1,13 +1,11 @@
 
 /* BASIC */
 
-html {
-    background-color: #56baed;
-  }
-  
+
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    background-color: #000000;
   }
   
   a {
@@ -29,6 +27,9 @@ html {
 label:empty{
     display: none;
 }
+form{
+    background-color: #ebe6e6;
+}
 .errorlist{
     list-style-type: none;
     width: 89%;
@@ -46,6 +47,7 @@ label:empty{
     width: 100%;
     min-height: 100%;
     padding: 20px;
+    background-color: #353232;
   }
   
   #formContent {
@@ -63,7 +65,7 @@ label:empty{
   }
   
   #formFooter {
-    background-color: #f6f6f6;
+    background-color: #dbd4d4;
     border-top: 1px solid #dce8f1;
     padding: 25px;
     text-align: center;
