@@ -4,6 +4,13 @@ from django.db import models
 from django.utils.translation import gettext_lazy
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    user_image = models.ImageField(verbose_name='Изображение профиля', upload_to = 'user_img', null=True, blank=True)
+    date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
+    phone_number = models.CharField(verbose_name='Номер телефона', max_length=20, null=True, blank=True)
+    biography = models.CharField(verbose_name='Опишите себя', max_length=140, null=True, blank=True)
+
 class Author(models.Model):
     class Meta:
         verbose_name = 'Автор'
@@ -14,7 +21,9 @@ class Author(models.Model):
     date_of_death = models.DateField('Дата смерти', validators=[
                                     RegexValidator('((0?[1-9])|([12]\d)|(3[01]))\.((0?[1-9])|(1[0-2]))\.(1[0-9]{3})|(20[01]\d)|(202[0-2])')
                                         ], null=True, blank=True)
-    #author_photo = models.ImageField(verbose_name='Фотография автора',upload_to = 'images/', null=True, blank=True)
+    author_photo = models.ImageField(verbose_name='Фотография автора',upload_to = 'author_img/', null=True, blank=True)
+    def __str__(self):
+        return self.author_name
 
 class Genre(models.Model):
     class Meta:
@@ -23,6 +32,9 @@ class Genre(models.Model):
 
     genre_name = models.CharField('Жанры', max_length=50)
     genre_description = models.CharField('Описание жанра', max_length=140)
+    
+    def __str__(self):
+        return self.genre_name
 
 class Publisher(models.Model):
     class Meta:
@@ -30,6 +42,9 @@ class Publisher(models.Model):
         verbose_name_plural = 'Издательства'
 
     publisher_name = models.CharField('Наименование', max_length=100)
+    
+    def __str__(self):
+        return self.publisher_name
 
 class Book(models.Model):
     class Meta:
@@ -39,13 +54,16 @@ class Book(models.Model):
     
     book_name = models.CharField('Наименование', max_length=100)
     book_description = models.CharField('Описание книги', max_length=1000)
-    #book_image = models.ImageField(verbose_name='Обложка книги',upload_to = 'images/')
+    book_image = models.ImageField(verbose_name='Обложка книги',upload_to = 'book_img/', null=True, blank=True)
     books_in_stock = models.PositiveIntegerField('Количество книг в библиотеке')
     publication_year = models.PositiveIntegerField('Год публикации')
     publication_language = models.CharField('Язык издания', max_length=20)
     author = models.ForeignKey(Author, verbose_name='Автор книги', on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, verbose_name='Издательство', on_delete=models.CASCADE)
     genre = models.ManyToManyField(Genre, verbose_name='Жанры')
+
+    def __str__(self):
+        return self.book_name
 
 class Reservation(models.Model):
     class Meta:

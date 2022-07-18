@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.views.generic.detail import DetailView
 
 from .forms import LoginForm, SignUpForm
 
@@ -31,5 +34,13 @@ class LogIn(LoginView):
 class UserLogout(LogoutView):
     template_name = 'base.html'
 
-def user_page(request):
-    return render(request, 'library/user_page.html')
+# class UserProfileView(DetailView):
+#     model = User
+#     slug_field = "username"
+#     template_name = "library/user_page.html"
+
+# @login_required
+# def user_page(request, user_name):
+#     user = User.objects.get(username=user_name)
+#     user_name = 'venera'
+#     return render(request, 'library/user_page.html', user_name = user_name)
