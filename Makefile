@@ -10,3 +10,7 @@ migrate: #Команда для миграции моделей
 
 psql: #Вход в базу данных
 	./runpsql.sh
+
+telebot: #Команда для запуска телеграм бота
+	cd library/; \
+	python manage.py libbot

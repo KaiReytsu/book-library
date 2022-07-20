@@ -15,7 +15,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .secret_key import MY_PASS, SECRET_KEY
+from .secret_key import MY_PASS, SECRET_KEY, tg_tokken
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +32,7 @@ EMAIL_USE_SSL = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY
+TGTOKKEN = tg_tokken
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
