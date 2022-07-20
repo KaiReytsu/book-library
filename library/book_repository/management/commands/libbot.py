@@ -79,8 +79,13 @@ def callback_query(call):
                         text=f'<--- Назад', 
                         callback_data="{\"method\":\"pagination\",\"NumberPage\":" + str(
                             page-1) + ",\"CountPage\":" + str(count) + "}"),
-                           InlineKeyboardButton(text=f'{page}/{count}', callback_data=f' '),
-                           InlineKeyboardButton(text=f'Вперёд --->', callback_data="{\"method\":\"pagination\",\"NumberPage\":" + str(page+1) + ",\"CountPage\":" + str(count) + "}"))
+                           InlineKeyboardButton(
+                                text=f'{page}/{count}', 
+                                callback_data=f' '),
+                           InlineKeyboardButton(
+                                text=f'Вперёд --->', 
+                                callback_data="{\"method\":\"pagination\",\"NumberPage\":" + str(
+                                    page+1) + ",\"CountPage\":" + str(count) + "}"))
         bot.edit_message_text(serial_book[0]['book_name'],
                                 reply_markup = markup, 
                                 chat_id=call.message.chat.id, 
