@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Книги{% endblock %}
+{% block content %}
+    <h1>Список книг</h1>
+    <form method="get">
+        <input name="q" type="text" placeholder="Введите название">
+    </form>
+    {% if description.0 %}
+    <p>{{description.0.genre_description}}</p>
+    {% endif %}
+    {% if book_list %}
+
+    <ul>
+    {% for book in book_list %}
+        <li> 
+            <a href="\book\{{book.id}}">
+                {{book}}
+            </a>, {{book.author}}
+        </li>
+    {% endfor %}
+    </ul>
+    {%else%}
+    <p>Нет книг &#9785; </p>
+    {%endif%}
+
+{% endblock %}

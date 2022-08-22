@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
-    <!-- {% load static %}
+    {% load static %}
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <!-- 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" 
         type="text/css" 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Информация о книги{% endblock %}
+{% block content %}
+<h1>{{ book.book_name }}</h1>
+
+<img src="{{book.book_image.url}}" alt="img">
+<p><strong>Автор:</strong>{{ book.author }}</p>
+<p><strong>Описание:</strong> {{ book.book_description }}</p>
+<p><strong>Жанр:</strong> {{ book.genre.all|join:", " }}</p>
+<p><strong>Год издания:</strong> {{ book.publication_year }}</p>
+<p><strong>Язык издания:</strong> {{ book.publication_language }}</p>
+<p><strong>Издательство:</strong> {{ book.publisher }}</p>
+<input type="button" value="Забронировать">
+{% endblock %}
