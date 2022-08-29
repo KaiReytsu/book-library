@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+PYTHONPATH = '/home/kai_reytsu/.virtualenvs/book_library-8l-tcd1l'
 import os
 from pathlib import Path
 

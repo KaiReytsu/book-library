@@ -10,7 +10,7 @@ from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
 
 from .forms import LoginForm, SignUpForm
-from .models import Book, Genre
+from .models import Book, Genre, UserProfile
 
 
 class SignUp(SuccessMessageMixin, CreateView):
@@ -35,6 +35,10 @@ class LogIn(LoginView):
 
 class UserLogout(LogoutView):
     template_name = 'base.html'
+
+class UserView(DetailView):
+    model= UserProfile
+    template_name = 'user_page.html'
 
 class BookList(ListView):
     model = Book
