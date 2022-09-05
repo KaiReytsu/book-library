@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Книги{% endblock %}
 {% block content %}
-    <h1>Список книг</h1>
+    <p>Сейчас в библиотеке Вы можете найти:</p>
+        <ul>
+            <li><strong>Разные книги в количестве:</strong> {{ num_books }}</li>
+            <li><strong>Авторов:</strong> {{ num_authors }}</li>
+        </ul>
+    <p>Поиск</p>
     <form method="get">
         <input name="q" type="text" placeholder="Введите название">
-    </form>
+    
     {% if description.0 %}
     <p>{{description.0.genre_description}}</p>
     {% endif %}
@@ -22,5 +27,5 @@
     {%else%}
     <p>Нет книг &#9785; </p>
     {%endif%}
-
+    </form>
 {% endblock %}

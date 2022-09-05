@@ -34,8 +34,13 @@ form{
     list-style-type: none;
     width: 89%;
 }
-  
-  
+.reg_login{
+    width:19%;
+}
+.fadeIn.first{
+    background-color: #dbd4d4;
+    border-radius: 10px 10px 0px 0px;
+}
   
   /* STRUCTURE */
   
@@ -133,7 +138,7 @@ form{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 5px;
+    margin: 10px 5px 0 0;
     width: 85%;
     border: 2px solid #c7c5c5;
     -webkit-transition: all 0.5s ease-in-out;
@@ -266,6 +271,3 @@ form{
       outline: none;
   } 
   
-  #icon {
-    width:60%;
-  }

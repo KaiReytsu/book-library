@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>Вход</title>
-    {% load static %}
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+{% load static %}
+{% block styles%}
     <link rel="stylesheet" 
           type="text/css" 
           href="{% static 'style.css' %}">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
           rel="stylesheet" 
           id="bootstrap-css">
-</head>
-<body>
+{% endblock %}
+{% block header %}
+{% endblock header %}
+{% block content %}
     <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
       
           <!-- Icon -->
           <div class="fadeIn first">
-            <img src="" id="icon" alt="Lib Icon" />
+            <img class="reg_login" src="../../../static/user.png" id="icon" alt="Lib Icon" />
           </div>
           <form method="post">                             
             {{form}}
@@ -27,9 +27,9 @@
           </form>
           <div id="formFooter">
             <a class="underlineHover" href="{% url 'registration' %}">Регистрация</a> /
-            <a class="underlineHover" href="{% url 'mainpage' %}">Главная страница</a>
+            <a class="underlineHover" href="{% url 'books' %}">Список книг</a>
           </div>
       
         </div>
       </div>
-</body>
+{% endblock %}

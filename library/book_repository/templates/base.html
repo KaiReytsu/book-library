@@ -5,6 +5,8 @@
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'favicon.ico' %}">
+    {% block styles %}{% endblock %}
+    {% block scripts %}{% endblock %}
     <!-- 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" 
@@ -14,6 +16,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 </head>
 <body>
+    {% block header %}
     {% if user.is_authenticated %}
     <header>
         <p><a href="{% url 'login'%}">Выйти</a></p>
@@ -26,11 +29,10 @@
         </p>
     </header>
     {% endif %}
-    <div>
-        
-        {% block content %}
-        <h1>Добро пожаловать!</h1>
-        {% endblock %}
-    </div>
+    {% endblock header %}
+    {% block content %}
+        <div></div>
+    {% endblock %}
+    
 </body>
 </html>
