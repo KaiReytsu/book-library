@@ -13,7 +13,7 @@ urlpatterns = [
     path('registration/', views.SignUp.as_view(), name='registration'),
     path('catalog/', views.BookList.as_view(), name='books'),
     path('book/<int:pk>', views.BookDetail.as_view(), name='bookdetail'),
-    path('profile/<slug:slug>/', views.UserView.as_view(), name='user'),
+    path('profile/<int:pk>/', views.UserView.as_view(), name='user'),
     path('reservation/', views.ReservationView.as_view(), name='reservation'),
 ]
 if settings.DEBUG:

@@ -19,7 +19,8 @@
     {% block header %}
     {% if user.is_authenticated %}
     <header>
-        <p><a href="{% url 'login'%}">Выйти</a></p>
+        <p><a href="{% url 'books'%}">Выйти</a>/
+        <a href="/profile/{{user.id}}/">Страница пользователя</a></p>
     </header>
     {% else %}
     <header>

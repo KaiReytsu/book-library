@@ -72,7 +72,6 @@ class Book(models.Model):
     isbn = models.CharField('ISBN', max_length=13,  unique=True, null=True, blank=True)
     books_in_stock = models.PositiveIntegerField('Количество книг в библиотеке')
     publication_year = models.PositiveIntegerField('Год публикации')
-    # publication_language = models.CharField('Язык издания', max_length=20, null=True, blank=True)
     publication_language = models.ForeignKey(Language, verbose_name='Язык издания', max_length=20, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, verbose_name='Автор книги', on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, verbose_name='Издательство', on_delete=models.CASCADE)

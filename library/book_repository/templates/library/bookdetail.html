@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block title %}{{book.book_name}}{% endblock %}
+{% load static %}
+{% block scripts %}
+<script src="{% static 'reservation.js' %}">
+</script>
+{% endblock %}
 {% block content %}
 <h1>{{ book.book_name }}</h1>
 
@@ -10,5 +15,8 @@
 <p><strong>Год издания:</strong> {{ book.publication_year }}</p>
 <p><strong>Язык издания:</strong> {{ book.publication_language }}</p>
 <p><strong>Издательство:</strong> {{ book.publisher }}</p>
-<input type="button" value="Забронировать">
+<input type="button" value="Забронировать" onclick="reservefunc()">
+<div id="reserve_id">
+
+</div>
 {% endblock %}

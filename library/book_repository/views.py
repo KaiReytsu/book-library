@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
+import json
 
 from .forms import LoginForm, SignUpForm, ReservationForm
 from .models import Book, Genre, UserProfile, Author,Reservation
@@ -34,11 +35,11 @@ class LogIn(LoginView):
     template_name = 'library/login.html'
 
 class UserLogout(LogoutView):
-    template_name = 'base.html'
+    template_name = 'library/book_list.html'
 
 class UserView(DetailView):
-    model= UserProfile
-    template_name = 'user_page.html'
+    model= User
+    template_name = 'library/user_page.html'
 
 class BookList(ListView):
     model = Book
@@ -69,7 +70,19 @@ class BookDetail(DetailView):
     model = Book
     template_name = 'library/bookdetail.html'
 
+
 class ReservationView(CreateView):
     form_class = ReservationForm
     model = Reservation
     template_name = 'library/reservationpage.html'
+    def post(self, request, *args, **kwargs):
+        reservation = Reservation()
+        data = request.body.decode('utf-8')
+        date = json.loads(data)
+        reservation.book = Book.objects.filter(id = date['book_id']).first()
+        reservation.date_of_issue = date['date_of_issue']
+        reservation.user = request.user
+        reservation.save()
+        print("RESULT", request.user.id)
+        #return super().post(request, *args, **kwargs)
+

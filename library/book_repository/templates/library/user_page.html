@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <p>Привет, {{ user }}</p>
+    <p>Привет, {{ user.username }}</p>
 {% else %}
 <p>Ты тут?</p>
 {% endif %}
