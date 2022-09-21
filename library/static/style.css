@@ -1,15 +1,12 @@
 
-/* BASIC */
-
-
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
-    background-color: #000000;
+    background-color: #2e2c2c;
   }
   
   a {
-    color: #92badd;
+    color: #9fc5e7;
     display:inline-block;
     text-decoration: none;
     font-weight: 400;
@@ -29,6 +26,81 @@ label:empty{
 }
 form{
     background-color: #ebe6e6;
+}
+.navbar{
+  justify-content: flex-start;
+}
+.nav-link{
+  color: #9fc5e7;
+}
+.blockcontent{
+    display: flex;
+    flex-direction: row;
+ }
+ .basedir {
+  position: relative;
+  width: 100%;
+}
+
+/* Make the image responsive */
+.basedir .bgimg {
+  width: 100%;
+  /* height: auto; */
+  filter: blur(3px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 94vh;
+  background-color: #2e2c2c;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.basedir .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgba(28,28,28,0);
+  border: 2px solid black;
+  color: black;
+  text-shadow: 0 0 0.2em white;
+  font-size: 23px;
+  padding: 12px 24px;
+}
+
+.basedir .btn:hover {
+    background-color: #9fc5e7;
+}
+.infotable{
+    filter: blur(0px);
+  /* background-position: 50%; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 15%;
+    padding: 10px 0 0 10px;
+  /* min-height: 94vh; */
+    background-color: #2e2c2c;
+}
+.latest_book_p{
+    color: #e5ecf3;
+    text-decoration: underline;
+    text-align: center;
+}
+.latest_book_a{
+    text-align: center;
+}
+.latest_book_img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 .errorlist{
     list-style-type: none;
@@ -157,116 +229,7 @@ form{
   
   input[type=text]:placeholder, input[type=password]:placeholder {
     color: #cccccc;
-  }
-  
-  
-  
-  /* ANIMATIONS */
-  
-  /* Simple CSS3 Fade-in-down Animation */
-  /* .fadeInDown {
-    -webkit-animation-name: fadeInDown;
-    animation-name: fadeInDown;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
-  
-  @-webkit-keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -100%, 0);
-      transform: translate3d(0, -100%, 0);
-    }
-    100% {
-      opacity: 1;
-      -webkit-transform: none;
-      transform: none;
-    }
-  }
-  
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -100%, 0);
-      transform: translate3d(0, -100%, 0);
-    }
-    100% {
-      opacity: 1;
-      -webkit-transform: none;
-      transform: none;
-    }
-  }
-   */
-  /* Simple CSS3 Fade-in Animation */
-  /* @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  
-  .fadeIn {
-    opacity:0;
-    -webkit-animation:fadeIn ease-in 1;
-    -moz-animation:fadeIn ease-in 1;
-    animation:fadeIn ease-in 1;
-  
-    -webkit-animation-fill-mode:forwards;
-    -moz-animation-fill-mode:forwards;
-    animation-fill-mode:forwards;
-  
-    -webkit-animation-duration:1s;
-    -moz-animation-duration:1s;
-    animation-duration:1s;
-  }
-  
-  .fadeIn.first {
-    -webkit-animation-delay: 0.4s;
-    -moz-animation-delay: 0.4s;
-    animation-delay: 0.4s;
-  }
-  
-  .fadeIn.second {
-    -webkit-animation-delay: 0.6s;
-    -moz-animation-delay: 0.6s;
-    animation-delay: 0.6s;
-  }
-  
-  .fadeIn.third {
-    -webkit-animation-delay: 0.8s;
-    -moz-animation-delay: 0.8s;
-    animation-delay: 0.8s;
-  }
-  
-  .fadeIn.fourth {
-    -webkit-animation-delay: 1s;
-    -moz-animation-delay: 1s;
-    animation-delay: 1s;
-  } */
-  
-  /* Simple CSS3 Fade-in Animation */
-  /* .underlineHover:after {
-    display: block;
-    left: 0;
-    bottom: -10px;
-    width: 0;
-    height: 2px;
-    background-color: #56baed;
-    content: "";
-    transition: width 0.2s;
-  }
-  
-  .underlineHover:hover {
-    color: #0d0d0d;
-  }
-  
-  .underlineHover:hover:after{
-    width: 100%;
-  } */
-  
-  
-  
-  /* OTHERS */
-  
+  }  
   *:focus {
       outline: none;
   } 

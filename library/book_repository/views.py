@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -6,6 +5,7 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
 import json
@@ -35,7 +35,7 @@ class LogIn(LoginView):
     template_name = 'library/login.html'
 
 class UserLogout(LogoutView):
-    template_name = 'library/book_list.html'
+    template_name = 'base.html'
 
 class UserView(DetailView):
     model= User
@@ -85,4 +85,13 @@ class ReservationView(CreateView):
         reservation.save()
         print("RESULT", request.user.id)
         #return super().post(request, *args, **kwargs)
+
+
+def start_page(request):
+    list_book = Book.objects.all().count()
+    print("RESULT", list_book)
+    book = Book.objects.filter(id = list_book)
+    context = {'last_book': book}
+    print("SECOND!!!!", book)
+    return render(request, template_name='base.html', context=context)
 

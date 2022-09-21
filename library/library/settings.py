@@ -15,32 +15,24 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .secret_key import MY_PASS, SECRET_KEY, tg_tokken
 
 load_dotenv()
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#email sanding
 EMAIL_PORT = 465
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = 'kai.reytsu'
-EMAIL_HOST_PASSWORD = MY_PASS
+EMAIL_HOST_PASSWORD = os.getenv('MY_PASS')
 EMAIL_USE_SSL = True
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY
-TGTOKKEN = tg_tokken
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.getenv('SECRET_KEY')
+TGTOKKEN = os.getenv('TG_TOKKEN')
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -84,11 +76,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 WSGI_APPLICATION = 'library.wsgi.application'
 
-LOGIN_REDIRECT_URL = 'user'
+LOGIN_REDIRECT_URL = 'books'
 LOGIN_URL = 'login'
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -100,10 +90,6 @@ DATABASES = {
                 'PORT': os.getenv('POSTGRES_PORT'),
                 },
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -121,9 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
@@ -133,8 +116,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -142,8 +123,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
