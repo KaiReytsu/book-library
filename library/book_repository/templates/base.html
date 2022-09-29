@@ -14,7 +14,10 @@
           type="text/css" 
           href="{% static 'style.css' %}">
     {% endblock %}
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    <script src="{% static 'baseredirect.js' %}">
+    </script>
+    {% endblock %}
     <!-- 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" 
@@ -28,7 +31,7 @@
     {% if user.is_authenticated %}
     <header>
         <nav class="navbar navbar-dark bg-dark">
-            <a href="{% url 'mainpage'%}">Выйти</a>
+            <a class="nav-link" href="{% url 'mainpage'%}">Выйти</a>
         </nav>
     </header>
     {% else %}
@@ -44,7 +47,7 @@
         <div class="blockcontent">
             <div class="basedir">
                 <img class="bgimg" src="{% static 'blur-book-stack.jpg'%}" alt="...">
-                <input class="btn" type="button" value="Перейти к списку книг"> 
+                <input class="btn" type="button" value="Перейти к списку книг" onclick="redirecturl()"> 
             </div>           
             <div class="infotable">
                 <div class="latest_book">
