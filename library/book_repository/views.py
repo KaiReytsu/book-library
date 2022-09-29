@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -8,10 +10,9 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
-import json
 
-from .forms import LoginForm, SignUpForm, ReservationForm
-from .models import Book, Genre, UserProfile, Author,Reservation
+from .forms import LoginForm, ReservationForm, SignUpForm
+from .models import Author, Book, Genre, Reservation, UserProfile
 
 
 class SignUp(SuccessMessageMixin, CreateView):
@@ -47,8 +48,6 @@ class BookList(ListView):
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('q')
         data = super().get_context_data(**kwargs)
-        data['num_books'] = Book.objects.all().count()
-        data['num_authors'] = Author.objects.count() 
         if query:
             book_name_list = Book.objects.filter(
                 Q(book_name__icontains=query))
@@ -64,7 +63,7 @@ class BookList(ListView):
                 description = Genre.objects.filter(
                     Q(genre_name__icontains= query))
             data['description'] = description
-        return data
+            return data
 
 class BookDetail(DetailView):
     model = Book
@@ -88,10 +87,15 @@ class ReservationView(CreateView):
 
 
 def start_page(request):
-    list_book = Book.objects.all().count()
-    print("RESULT", list_book)
-    book = Book.objects.filter(id = list_book)
-    context = {'last_book': book}
-    print("SECOND!!!!", book)
+    book_count = Book.objects.all().count()
+    author_count = Author.objects.all().count()
+    book = Book.objects.filter(id = book_count)
+    genres = Genre.objects.all()
+    context = {
+                'book': book, 
+                'list_book': book_count,
+                'list_author': author_count,
+                'genres': genres
+                }
     return render(request, template_name='base.html', context=context)
 

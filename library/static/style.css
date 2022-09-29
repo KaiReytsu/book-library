@@ -24,8 +24,27 @@
 label:empty{
     display: none;
 }
-form{
+li{
+  list-style-type: none;
+  color: white;
+}
+.login_form{
     background-color: #ebe6e6;
+}
+.search_form{
+    background-color: #2e2c2c;
+    height: 15%;
+    display: flex;
+    margin-top: 25px;
+}
+.search_input{
+  width: 25%;
+  height: 30%;
+}
+.search_submit{
+  background-color: #722121;
+  padding: 10px;
+  height: 40px;
 }
 .navbar{
   justify-content: flex-start;
@@ -102,6 +121,7 @@ form{
     border: 1px solid black;
     border-radius: 10px;
 }
+
 .errorlist{
     list-style-type: none;
     width: 89%;

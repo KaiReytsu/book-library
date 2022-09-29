@@ -20,7 +20,7 @@
           <div class="fadeIn first">
             <img class="reg_login" src="../../../static/user.png" id="icon" alt="Lib Icon" />
           </div>
-          <form method="post">                             
+          <form method="post" class="login_form">                             
             {{form}}
             {% csrf_token %}
             <input type="submit" class="fadeIn fourth" value="Вход">
@@ -33,3 +33,5 @@
         </div>
       </div>
 {% endblock %}
+{% block footer %}
+{% endblock footer %}

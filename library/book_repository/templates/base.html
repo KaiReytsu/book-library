@@ -47,20 +47,32 @@
         <div class="blockcontent">
             <div class="basedir">
                 <img class="bgimg" src="{% static 'blur-book-stack.jpg'%}" alt="...">
-                <input class="btn" type="button" value="Перейти к списку книг" onclick="redirecturl()"> 
+                <input class="btn" type="button" value="Перейти к поиску книг" onclick="redirecturl()"> 
             </div>           
             <div class="infotable">
                 <div class="latest_book">
                     <p class="latest_book_p"> Недавнее поступление </p>
-                    <img class="latest_book_img" src="{{last_book.0.book_image.url}}" alt="img">
-                    <a class="latest_book_a" href="\book\{{last_book.0.id}}">
-                        {{last_book.0}} 
+                    <img class="latest_book_img" src="{{book.0.book_image.url}}" alt="img">
+                    <a class="latest_book_a" href="\book\{{book.0.id}}">
+                        {{book.0}} 
                     </a>
                 </p>
+                <p class="latest_book_p"> Жанры </p>
+                <ul>
+                {% for genre in genres %}
+                    <li>{{genre.genre_name}}</li>
+                {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
     {% endblock %}
-    
+    {% block footer %}
+    <footer class="bg-dark text-center text-white">
+        <h5>Сейчас в библиотеке Вы можете найти:</h5>
+                <p><strong>Количество книг в библиотеке:</strong> {{ list_book }}</p>
+                <p><strong>Количество авторов:</strong> {{ list_author }}</p>
+        </footer> 
+    {% endblock footer %}
 </body>
 </html>
