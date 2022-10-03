@@ -12,7 +12,7 @@
             crossorigin="anonymous" />
         <link rel="stylesheet" 
           type="text/css" 
-          href="{% static 'style.css' %}">
+          href="{% static 'basestyle.css' %}">
     {% endblock %}
     {% block scripts %}
     <script src="{% static 'baseredirect.js' %}">
@@ -32,6 +32,9 @@
     <header>
         <nav class="navbar navbar-dark bg-dark">
             <a class="nav-link" href="{% url 'mainpage'%}">Выйти</a>
+                {% if user.is_superuser %}
+            <a class="nav-link" href="{% url 'admin:index' %}"> Страница администратора </a>
+        {% endif %}        
         </nav>
     </header>
     {% else %}
@@ -40,6 +43,7 @@
             <a class="nav-link" href="{% url 'login' %}">Вход </a>
             <a class="nav-link" href="{% url 'registration' %}"> Регистрация</a>
         </nav>
+
     </header>
     {% endif %}
     {% endblock header %}

@@ -2,10 +2,26 @@
 {% block title %}Поиск книг{% endblock %}
 {% load static %}
 {% block content %}
+    <div>
        <form method="get" class="search_form">
             <input name="q" type="search" class="form-control search_input" placeholder="Введите название">
             <input type="submit" class="search_submit" value="&#128269;">
        </form> 
+       {% if is_paginated %}
+       <div class="paginationblock">
+           <span class="page-links">
+               {% if page_obj.has_previous %}
+                   <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">предыдущая</a>
+               {% endif %}
+               <span class="page-current">
+                   Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+               </span>
+               {% if page_obj.has_next %}
+                   <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">следующая</a>
+               {% endif %}
+           </span>
+       </div>
+   {% endif %}
     {% if description.0 %}
         <div class="genre_description">
             <p>
@@ -15,23 +31,36 @@
     {% endif %}
     {% if book_list %}
         <div class="search_div">
-            <ul>
         {% for book in book_list %}
-                
-                <li> 
-                    <img src="{{book.book_image.url}}" alt="img">
-                    <a href="\book\{{book.id}}">
-                        {{book}}
-                    </a>, {{book.author}}
-                </li>
+                <div class="list_book_li"> <a href="\book\{{book.id}}">
+                    <img class='list_book_img' src="{{book.book_image.url}}" alt="img">
+                    <p><strong>{{book}}</strong></p>
+                    <p>Автор: {{book.author}}</p>
+                </a>
+            </div>
         {% endfor %}
-            </ul>
         </div>
     {%else%}
-        <p>
-            Книг не найдено &#9785; 
+        <p class="list_book_p">
+            По вашему запросу ничего не найдено &#9785; 
         </p>
     {%endif%}
+</div>
+{% if is_paginated %}
+      <div class="paginationblock">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">предыдущая</a>
+              {% endif %}
+              <span class="page-current">
+                  Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">следующая</a>
+              {% endif %}
+          </span>
+      </div>
+  {% endif %}
 {% endblock %}
 {% block footer %}
 {% endblock footer %}

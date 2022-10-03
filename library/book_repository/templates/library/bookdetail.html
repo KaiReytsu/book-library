@@ -6,17 +6,40 @@
 </script>
 {% endblock %}
 {% block content %}
-<h1>{{ book.book_name }}</h1>
-
-<img src="{{book.book_image.url}}" alt="img">
-<p><strong>Автор:</strong>{{ book.author }}</p>
-<p><strong>Описание:</strong> {{ book.book_description }}</p>
-<p><strong>Жанр:</strong> {{ book.genre.all|join:", " }}</p>
-<p><strong>Год издания:</strong> {{ book.publication_year }}</p>
-<p><strong>Язык издания:</strong> {{ book.publication_language }}</p>
-<p><strong>Издательство:</strong> {{ book.publisher }}</p>
-<input type="button" value="Забронировать" onclick="reservefunc()">
-<div id="reserve_id">
+<div class="book_table">
+<h1 class="book_name">{{ book.book_name }}</h1>
+<div class="book_info">
+<img class="book_img" src="{{book.book_image.url}}" alt="img">
+<div class="book_ditail">
+<p><strong>Автор: </strong>{{ book.author }}</p>
+<p><strong>Жанр: </strong>{{ book.genre.all|join:", " }}</p>
+<p><strong>Год издания: </strong>{{ book.publication_year }}</p>
+<p><strong>Язык издания: </strong>{{ book.publication_language }}</p>
+<p><strong>Издательство: </strong>{{ book.publisher }}</p>
+<p><strong>Количество экземпляров: </strong>{{ book.books_in_stock}}</p>
+</div>
 
 </div>
+<div class="book_description">
+<p>{{ book.book_description }}</p>    
+</div>
+</div>
+<div class="book_reserv">
+{% if book.books_in_stock > 0%}
+<input class="reserv_button" type="button" value="Забронировать" onclick="reservefunc()">
+<div id="reserve_id">
+    {%else%}
+<p class="nobook">Нет в наличии</p>
+{% endif%}
+</div>
+    <dialog>
+        <p>
+            Вы забронировали книгу "{{book.book_name}}". Забрать книгу можно по адресу: г. Москва, ул. Улица, д.1 до (до даты возврата).
+            Номер бронирования (номер бронирования). Чтобы забрать книгу, назовите содруднику своё имя пользователя {{user.username}} или номер бронирования
+        </p>
+        <button id="close">Понятно</button>
+    </dialog>
+</div>
 {% endblock %}
+{% block footer %}
+{% endblock footer %}

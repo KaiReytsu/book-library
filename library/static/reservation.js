@@ -8,6 +8,7 @@ function reservefunc(){
     input_date.setAttribute('id', 'reserve_date');
     div_element.appendChild(input_date);
     var input_button = document.createElement('input');
+    input_button.setAttribute('id', 'show');
     input_button.setAttribute('type', 'button');
     input_button.setAttribute('value', 'Ok');
     input_button.setAttribute('onclick', 'get_date()');
@@ -26,14 +27,19 @@ function get_date(){
     span_element.appendChild(span_text)
     date_of_issue = new Date(reserve_date);
     date_of_issue.setHours(0,0,0,0)
-    var book_id = document.URL.slice(-1);
-    console.log(book_id); 
+    var book_id = document.URL.split('/').slice(-2)[1];
+    console.log(book_id)
     var today = new Date();
     today.setHours(0,0,0,0);
     var number_of_days_to_add = 5;
     var last_day = new Date(today.getTime())
     last_day.setDate(last_day.getDate() + number_of_days_to_add)
     if (date_of_issue >= today && date_of_issue <= last_day){
+        var dialog = document.querySelector('dialog');
+        dialog.showModal();
+        document.querySelector('#close').onclick = function() {
+            dialog.close();
+        };
         console.log(date_of_issue)
         post_info(date_of_issue, book_id)
         return date_of_issue

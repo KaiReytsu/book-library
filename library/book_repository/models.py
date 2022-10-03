@@ -22,9 +22,7 @@ class Author(models.Model):
 
     author_name = models.CharField('Авторы', max_length=100)
     date_of_birth = models.DateField('Дата рождения', null=True, blank=True)
-    date_of_death = models.DateField('Дата смерти', validators=[
-                                    RegexValidator('((0?[1-9])|([12]\d)|(3[01]))\.((0?[1-9])|(1[0-2]))\.(1[0-9]{3})|(20[01]\d)|(202[0-2])')
-                                        ], null=True, blank=True)
+    date_of_death = models.DateField('Дата смерти', null=True, blank=True)
     author_photo = models.ImageField(verbose_name='Фотография автора',upload_to = 'author_img/', null=True, blank=True)
     def __str__(self):
         return self.author_name
@@ -98,7 +96,7 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, verbose_name='Имя пользователя', on_delete=models.CASCADE)
     book = models.ForeignKey(Book, verbose_name='Забронированная книга', on_delete=models.CASCADE)
     date_of_issue = models.DateTimeField(verbose_name='Дата бронирования')
-    date_of_return = models.DateTimeField(verbose_name='Дата возврата', default=(datetime.now() + timedelta(days=10)))
+    date_of_return = models.DateTimeField(verbose_name='Дата возврата')
     status = models.CharField('Статус бронирования', max_length=10, choices=Status.choices, default=Status.RESERVED)
 
 

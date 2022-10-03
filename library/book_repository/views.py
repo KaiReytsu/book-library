@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -10,6 +11,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import LoginForm, ReservationForm, SignUpForm
 from .models import Author, Book, Genre, Reservation, UserProfile
@@ -45,6 +47,7 @@ class UserView(DetailView):
 class BookList(ListView):
     model = Book
     template_name = 'library/book_list.html'
+    paginate_by = 6
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('q')
         data = super().get_context_data(**kwargs)
@@ -63,14 +66,16 @@ class BookList(ListView):
                 description = Genre.objects.filter(
                     Q(genre_name__icontains= query))
             data['description'] = description
-            return data
+        return data
 
 class BookDetail(DetailView):
     model = Book
     template_name = 'library/bookdetail.html'
 
 
-class ReservationView(CreateView):
+class ReservationView(LoginRequiredMixin, CreateView):
+    print("HEY, WE ARE HERE")
+    login_url = '/login/'
     form_class = ReservationForm
     model = Reservation
     template_name = 'library/reservationpage.html'
@@ -78,11 +83,15 @@ class ReservationView(CreateView):
         reservation = Reservation()
         data = request.body.decode('utf-8')
         date = json.loads(data)
-        reservation.book = Book.objects.filter(id = date['book_id']).first()
+        book = Book.objects.filter(id = date['book_id']).first()
+        reservation.book = book
         reservation.date_of_issue = date['date_of_issue']
+        date_of_return = datetime.strptime(reservation.date_of_issue, '%Y-%m-%dT%H:%M:%S.%f%z')+ timedelta(days=10)
+        reservation.date_of_return = date_of_return
         reservation.user = request.user
         reservation.save()
-        print("RESULT", request.user.id)
+        book.books_in_stock = book.books_in_stock - 1
+        book.save()
         #return super().post(request, *args, **kwargs)
 
 

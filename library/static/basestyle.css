@@ -1,6 +1,6 @@
-
-  body {
+body {
     font-family: "Poppins", sans-serif;
+    color: #cccccc;
     height: 100vh;
     background-color: #2e2c2c;
   }
@@ -11,7 +11,6 @@
     text-decoration: none;
     font-weight: 400;
   }
-  
   h2 {
     text-align: center;
     font-size: 16px;
@@ -28,23 +27,139 @@ li{
   list-style-type: none;
   color: white;
 }
+dialog{
+  border-radius: 14px;
+  background: #fefefe;
+  width: 57%;
+  }
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+#show, #close{
+  border: 2px solid black;
+  color: black;
+  font-size: 17px;
+  background-color: #b5d0fc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.paginationblock{
+  display: flex;
+    padding-left: 0;
+    justify-content: center;
+}
+.nobook{
+  text-decoration: underline;
+    font-size: 25px;
+}
+.book_table{
+  float: left;
+  display: block;
+  float: left;
+  display: block;
+  width: 74%;
+  margin: 2px;
+}
+.book_reserv{
+  margin: 209px 0 0 85px;
+  width: 259px;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.book_name{
+  text-align: center;
+  padding-right: 16%;
+  padding-top: 8px;
+  padding-bottom: 38px;
+}
+.book_description{
+  margin-left: 26%;
+  text-align: justify;
+  width: 50%;
+  margin-top: 30px;
+}
+.book_info, .book_description{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.book_img{
+  border-radius: 22px;
+  margin-right: 29px;
+  width: 240px;
+}
+.book_ditail {
+  margin-top: 30px;
+  color: #c7c5c5;
+}
+.reserv_button{
+  border: 2px solid black;
+  color: black;
+  font-size: 23px;
+  background-color: #b5d0fc;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 12px 40px;
+}
 .login_form{
     background-color: #ebe6e6;
 }
 .search_form{
-    background-color: #2e2c2c;
-    height: 15%;
-    display: flex;
-    margin-top: 25px;
+  background-color: #2e2c2c;
+  /* height: 15%; */
+  display: flex;
+  margin-top: 40px;
+  justify-content: center;
 }
 .search_input{
   width: 25%;
-  height: 30%;
+  /* height: 30%; */
 }
 .search_submit{
-  background-color: #722121;
-  padding: 10px;
+  background-color: #529ad5;
+  border-radius: 4px;
+  padding: 9px;
   height: 40px;
+  margin: 5px;
+  margin-left: 16px;
+}
+.genre_description{
+  text-align: center;
+  width: 100%;
+  color: #ffffff;
+  font-size: 19px;
+  display: flex;
+  justify-content: center;
+}
+.search_div{
+  margin: 40px 10%;
+  padding-top: 18px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+}
+.list_book_img{
+  border-radius: 4px;
+  padding: 6px;
+  width: 140px;
+  margin: 5px 0px;
+}
+.list_book_li{
+  margin-left: 10px;
+  /* flex-direction: row; */
+  /* padding: 13px; */
+  width: 231px;
+  box-sizing: 15px;
+}
+.list_book_li:hover{
+  border: 2px solid rgb(66, 74, 80);
+  background-color: #9bc0f8;
+  box-shadow: 0px 1px 3px 3px #4c4a4a;
 }
 .navbar{
   justify-content: flex-start;
@@ -105,10 +220,14 @@ li{
   /* min-height: 94vh; */
     background-color: #2e2c2c;
 }
-.latest_book_p{
+.latest_book_p, .list_book_p{
     color: #e5ecf3;
     text-decoration: underline;
     text-align: center;
+}
+.list_book_p{
+  margin-top: 33px;
+  font-size: 120%;
 }
 .latest_book_a{
     text-align: center;
@@ -129,11 +248,6 @@ li{
 .reg_login{
     width:19%;
 }
-.fadeIn.first{
-    background-color: #dbd4d4;
-    border-radius: 10px 10px 0px 0px;
-}
-  
   /* STRUCTURE */
   
   .wrapper {
@@ -146,32 +260,6 @@ li{
     padding: 20px;
     background-color: #353232;
   }
-  
-  #formContent {
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border-radius: 10px 10px 10px 10px;
-    background: #fff;
-    padding: 30px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    text-align: center;
-  }
-  
-  #formFooter {
-    background-color: #dbd4d4;
-    border-top: 1px solid #dce8f1;
-    padding: 25px;
-    text-align: center;
-    -webkit-border-radius: 0 0 10px 10px;
-    border-radius: 0 0 10px 10px;
-  }
-  
-  
-  
   /* TABS */
   
   h2.inactive {
@@ -187,40 +275,24 @@ li{
   
   /* FORM TYPOGRAPHY*/
   
-  input[type=button], input[type=submit], input[type=reset]  {
-    background-color: #56baed;
-    border: none;
-    color: white;
-    padding: 15px 80px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    margin: 5px 20px 40px 20px;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-  
   input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
     background-color: #39ace7;
   }
   
-  input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  /* input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95);
   }
-  
+   */
+  input[type=date]{
+    border-radius: 3px;
+    margin-right: 11px;
+    background-color: #e5efff;
+    color: #260b11;
+  }
   input[type=text], input[type=password] {
     background-color: #f6f6f6;
     border: none;
