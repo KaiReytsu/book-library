@@ -7,7 +7,7 @@
             <input name="q" type="search" class="form-control search_input" placeholder="Введите название">
             <input type="submit" class="search_submit" value="&#128269;">
        </form> 
-       {% if is_paginated %}
+       <!-- {% if is_paginated %}
        <div class="paginationblock">
            <span class="page-links">
                {% if page_obj.has_previous %}
@@ -19,7 +19,7 @@
                {% if page_obj.has_next %}
                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">следующая</a>
                {% endif %}
-           </span>
+           </span> -->
        </div>
    {% endif %}
     {% if description.0 %}

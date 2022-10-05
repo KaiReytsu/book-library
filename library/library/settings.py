@@ -77,6 +77,7 @@ AUTHENTICATION_BACKENDS = [
 WSGI_APPLICATION = 'library.wsgi.application'
 
 LOGIN_REDIRECT_URL = 'books'
+LOGOUT_REDIRECT_URL = 'logout'
 LOGIN_URL = 'login'
 
 

@@ -4,8 +4,22 @@ function reservefunc(){
     if (true_element){
     var div_element = document.getElementById('reserve_id');
     var input_date = document.createElement('input');
+    var today = new Date()
+    var month = today.getUTCMonth() + 1;
+    var day = today.getUTCDate();
+    var year = today.getUTCFullYear();
+    today.setHours(0,0,0,0);
+    var number_of_days_to_add = 5;
+    var last_date = new Date(today.getTime())
+    last_date.setDate(last_date.getDate() + number_of_days_to_add)
+    var last_month = last_date.getUTCMonth() + 1;
+    var last_day = last_date.getUTCDate();
+    var last_year = last_date.getUTCFullYear();
     input_date.setAttribute('type', 'date');
     input_date.setAttribute('id', 'reserve_date');
+    input_date.setAttribute('value', ( year+ "-" +  month + "-" +day));
+    input_date.setAttribute('min', (year + "-" +  month + "-" +day));
+    input_date.setAttribute('max', (last_year + "-" + last_month + "-" +last_day ));
     div_element.appendChild(input_date);
     var input_button = document.createElement('input');
     input_button.setAttribute('id', 'show');

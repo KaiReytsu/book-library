@@ -63,7 +63,7 @@ class ReservationAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Заголовок бронирования', {
-            'fields': ('book', 'id')
+            'fields': ('book', 'reservation_id')
         }),
         ('Информация', {
             'fields': ('status', 'date_of_issue', 'date_of_return', 'user')

@@ -3,7 +3,18 @@
 {% load static %}
 {% block content %}
 <h1>Привет</h1>
-
+{% if reservation %}
+{% for reserv in reservation %}
+    <p>{{ reserv.id }}</p>
+    <p>{{ reserv.user }}</p>
+    <p>{{ reserv.book }}</p>
+    <p>{{ reserv.date_of_issue }}</p>
+    <p>{{ reserv.date_of_return }}</p>
+    <p>{{ reserv.status }}</p>
+{% endfor%}
+{% else%}
+<p>oops</p>
+{% endif %}
 
 
 {% endblock %}
