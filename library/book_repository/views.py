@@ -14,7 +14,7 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import LoginForm, ReservationForm, SignUpForm
-from .models import Author, Book, Genre, Reservation, UserProfile
+from .models import Author, Book, Genre, Reservation
 
 
 class SignUp(SuccessMessageMixin, CreateView):
@@ -38,7 +38,7 @@ class LogIn(LoginView):
     template_name = 'library/login.html'
 
 class UserLogout(LogoutView):
-    template_name = 'base.html'
+    template_name = 'library/logout.html'
 
 class UserView(DetailView):
     model= User
@@ -94,6 +94,9 @@ class ReservationView(LoginRequiredMixin, CreateView):
         book.save()
         #return super().post(request, *args, **kwargs)
 
+# class LibrarianView(ListView):
+#     model = Reservation
+#     template_name = 'library/reservationlist.html'
 
 def start_page(request):
     book_count = Book.objects.all().count()

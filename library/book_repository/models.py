@@ -1,4 +1,4 @@
-import uuid
+import hashlib
 
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
@@ -92,13 +92,24 @@ class Reservation(models.Model):
         ISSUED = 'issued', gettext_lazy('выдано')
         CLOSED = 'closed', gettext_lazy('возвращено')
         OVERDUE = 'overdue', gettext_lazy('просрочено')
-    id = models.CharField(primary_key=True, default=uuid.uuid4, max_length=50)
+    
     user = models.ForeignKey(User, verbose_name='Имя пользователя', on_delete=models.CASCADE)
     book = models.ForeignKey(Book, verbose_name='Забронированная книга', on_delete=models.CASCADE)
     date_of_issue = models.DateTimeField(verbose_name='Дата бронирования')
     date_of_return = models.DateTimeField(verbose_name='Дата возврата')
     status = models.CharField('Статус бронирования', max_length=10, choices=Status.choices, default=Status.RESERVED)
-
+    id = models.CharField(
+                            primary_key=True, 
+                            max_length=5, 
+                            unique=True)
+    def save(self, *args, **kwargs):
+        self.id = hashlib.md5((
+                                str(self.user) + 
+                                str(self.book) + 
+                                str(self.date_of_issue) + 
+                                str(self.date_of_return) + 
+                                str(self.status)).encode('utf-8')).hexdigest()[-5:]
+        return super().save(*args, **kwargs)
 
 # class BookRating(models.Model):
 #     class Meta:

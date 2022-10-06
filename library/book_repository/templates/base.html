@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Библиотека{% endblock %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'favicon.ico' %}">
     {% block styles %}
@@ -28,22 +28,24 @@
 </head>
 <body>
     {% block header %}
-    {% if user.is_authenticated %}
-    <header>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="nav-link" href="{% url 'mainpage'%}">Выйти</a>
-                {% if user.is_superuser %}
-            <a class="nav-link" href="{% url 'admin:index' %}"> Страница администратора </a>
-        {% endif %}        
-        </nav>
-    </header>
-    {% else %}
+    {% if not user.is_authenticated %}    
     <header>
         <nav class="navbar navbar-dark bg-dark">
             <a class="nav-link" href="{% url 'login' %}">Вход </a>
             <a class="nav-link" href="{% url 'registration' %}"> Регистрация</a>
         </nav>
-
+    </header>
+    {% else %}
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="nav-link" href="{% url 'logout'%}">Выйти</a>
+        {% if user.is_superuser%}
+            <a class="nav-link" href="{% url 'admin:index' %}"> Страница администратора </a>
+        {% endif %}  
+        {% if user.is_active and user.is_staff and not user.is_superuser%}
+            <a class="nav-link" href="{% url 'admin:index' %}"> Страница библиотекаря </a>   
+        {%endif%}  
+        </nav>
     </header>
     {% endif %}
     {% endblock header %}
