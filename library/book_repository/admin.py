@@ -58,8 +58,8 @@ class ReservationAdmin(admin.ModelAdmin):
      - filters that will be displayed in sidebar (list_filter)
      - grouping of fields into sections (fieldsets)
     """
-    search_fields = ['id', 'user']
-    list_display = ('book', 'id', 'status', 'user', 'date_of_issue', 'date_of_return')
+    search_fields = ['hash', 'user']
+    list_display = ('book', 'hash', 'status', 'user', 'date_of_issue', 'date_of_return')
     list_filter = ('status', 'date_of_issue', 'date_of_return')
 
     fieldsets = (

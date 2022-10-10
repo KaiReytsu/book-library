@@ -1,24 +1,26 @@
-var true_element = true;
-
 function reservefunc(){
-    if (true_element){
-    var div_element = document.getElementById('reserve_id');
-    var input_date = document.createElement('input');
-    input_date.setAttribute('type', 'date');
-    input_date.setAttribute('id', 'reserve_date');
-    div_element.appendChild(input_date);
-    var input_button = document.createElement('input');
-    input_button.setAttribute('id', 'show');
-    input_button.setAttribute('type', 'button');
-    input_button.setAttribute('value', 'Ok');
-    input_button.setAttribute('onclick', 'get_date()');
-    div_element.appendChild(input_button);
-    true_element = false;
+    var reserv_date = document.getElementById('reserv_date');
+    var show = document.getElementById('show');
+        reserv_date.style.display = 'block';
+        var today = new Date()
+        var month = today.getUTCMonth() + 1;
+        var day = today.getUTCDate();
+        var year = today.getUTCFullYear();
+        today.setHours(0,0,0,0);
+        var number_of_days_to_add = 5;
+        var last_date = new Date(today.getTime())
+        last_date.setDate(last_date.getDate() + number_of_days_to_add)
+        var last_month = last_date.getUTCMonth() + 1;
+        var last_day = last_date.getUTCDate();
+        var last_year = last_date.getUTCFullYear();
+        reserv_date.setAttribute('min', ( year+ "-" +  month + "-" +day));
+        reserv_date.setAttribute('max', (last_year + "-" + last_month + "-" +last_day ));
+        reserv_date.setAttribute('value', ( year+ "-" +  month + "-" +day));
+        show.style.display = 'block';
     }
-}
 
 function get_date(){
-    var reserve_date = document.getElementById('reserve_date').value;
+    var reserve_date = document.getElementById('reserv_date').value;
     var div_element = document.getElementById('reserve_id');
     var span_element = document.createElement('span');
     var span_text = document.createTextNode(
@@ -35,11 +37,7 @@ function get_date(){
     var last_day = new Date(today.getTime())
     last_day.setDate(last_day.getDate() + number_of_days_to_add)
     if (date_of_issue >= today && date_of_issue <= last_day){
-        var dialog = document.querySelector('dialog');
-        dialog.showModal();
-        document.querySelector('#close').onclick = function() {
-            dialog.close();
-        };
+       
         console.log(date_of_issue)
         post_info(date_of_issue, book_id)
         return date_of_issue
@@ -82,14 +80,30 @@ function post_info(date_of_issue, book_id){
             'Content-Type': 'application/json'
         }
     }).then(
-        response =>{
-            console.log(response)
-            return response;
-        }
+        response =>
+            response.json()
     ).then(
-        response =>{
-            data_json =>console.log(data_json.status);
-        }
+        data =>{
+            var dialog = document.querySelector('dialog');
+            if (data.res_status){
+                var text = document.getElementById('dialog_text')
+                text.innerHTML = 'Вы уже бронировали эту книгу, но ещё не вернули её.' + ' ' +
+                                    'Эту книгу можно забронировать вновь при возврате предыдущей'
+                dialog.showModal();
+
+            } else {
+                var month_names = ["янв", "фев", "мар", "апр", "мая", "июня",
+                                "июля", "авг", "сен", "окт", "ноя", "дек"
+                                ];
+                date = data.reservation_date_of_return.split('-');           
+                document.getElementById('return_date').innerHTML = date[2] + ' ' + month_names[date[1] - 1] + ' ' + date[0];
+                document.getElementById('res_id').innerHTML = data.reservation_id;
+                dialog.showModal();
+            }
+            document.querySelector('#close').onclick = function() {
+                window.location.reload();
+                dialog.close();
+            };}
     ).catch(
         error=>{
             console.log(error)

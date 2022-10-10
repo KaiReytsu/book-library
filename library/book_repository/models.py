@@ -1,19 +1,12 @@
 import hashlib
-
 from datetime import datetime, timedelta
+
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
-    user_image = models.ImageField(verbose_name='Изображение профиля', upload_to = 'user_img', null=True, blank=True)
-    date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
-    phone_number = models.CharField(verbose_name='Номер телефона', max_length=20, null=True, blank=True)
-    biography = models.CharField(verbose_name='Опишите себя', max_length=140, null=True, blank=True)
 
 class Author(models.Model):
     class Meta:
@@ -88,60 +81,26 @@ class Reservation(models.Model):
         verbose_name_plural = 'Бронирования'
 
     class Status(models.TextChoices):
-        RESERVED = 'reserved', gettext_lazy('забронировано')
-        ISSUED = 'issued', gettext_lazy('выдано')
-        CLOSED = 'closed', gettext_lazy('возвращено')
-        OVERDUE = 'overdue', gettext_lazy('просрочено')
+        RESERVED = 'забронировано', gettext_lazy('забронировано')
+        ISSUED = 'выдано', gettext_lazy('выдано')
+        CLOSED = 'возвращено', gettext_lazy('возвращено')
+        OVERDUE = 'просрочено', gettext_lazy('просрочено')
     
     user = models.ForeignKey(User, verbose_name='Имя пользователя', on_delete=models.CASCADE)
     book = models.ForeignKey(Book, verbose_name='Забронированная книга', on_delete=models.CASCADE)
     date_of_issue = models.DateTimeField(verbose_name='Дата бронирования')
     date_of_return = models.DateTimeField(verbose_name='Дата возврата')
-    status = models.CharField('Статус бронирования', max_length=10, choices=Status.choices, default=Status.RESERVED)
-    id = models.CharField(
-                            primary_key=True, 
+    status = models.CharField('Статус бронирования', max_length=20, choices=Status.choices, default=Status.RESERVED)
+    hash = models.CharField(default='',
                             max_length=5, 
                             unique=True)
     def save(self, *args, **kwargs):
-        self.id = hashlib.md5((
+        self.hash = hashlib.md5((str(self.id) +
                                 str(self.user) + 
                                 str(self.book) + 
                                 str(self.date_of_issue) + 
-                                str(self.date_of_return) + 
-                                str(self.status)).encode('utf-8')).hexdigest()[-5:]
+                                str(self.date_of_return)
+                                ).encode('utf-8')).hexdigest()[-5:]
         return super().save(*args, **kwargs)
-
-# class BookRating(models.Model):
-#     class Meta:
-#         verbose_name = 'Оценка книги'
-#         verbose_name_plural = 'Оценки книг'
-
-#     user = models.ForeignKey(User, verbose_name='Оценка от пользователя', on_delete=models.CASCADE)
-#     book = models.ForeignKey(Book, verbose_name='Оценка для книги', on_delete=models.CASCADE)
-#     grade = models.PositiveIntegerField('Оценка')
-
-# class FavouritesBooks(models.Model):
-#     class Meta:
-#         verbose_name = 'Избранная книга'
-#         verbose_name_plural = 'Избранные книги'
-    
-#     user = models.ForeignKey(User, verbose_name='Избранное пользователя', on_delete=models.CASCADE)
-#     book = models.ForeignKey(Book, verbose_name='Избранная книга', on_delete=models.CASCADE)
-
-# class FavouritesAuthor(models.Model):
-#     class Meta:
-#         verbose_name = 'Избранный автор'
-#         verbose_name_plural = 'Избранные авторы'
-    
-#     user = models.ForeignKey(User, verbose_name='Избранное пользователя', on_delete=models.CASCADE)
-#     author = models.ForeignKey(Author, verbose_name='Избранный автор', on_delete=models.CASCADE)
-    
-# class FavouritesGenre(models.Model):
-#     class Meta:
-#         verbose_name = 'Избранный жанр'
-#         verbose_name_plural = 'Избранные жанры'
-    
-#     user = models.ForeignKey(User, verbose_name='Избранное пользователя', on_delete=models.CASCADE)
-#     genre = models.ForeignKey(Genre, verbose_name='Избранный жанр', on_delete=models.CASCADE)
-
+        
 User._meta.get_field('email')._unique = True

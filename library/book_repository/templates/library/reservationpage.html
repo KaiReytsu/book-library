@@ -2,8 +2,9 @@
 {% block title %}{% endblock %}
 {% block content %}
     <h1>Hello</h1>
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+    <form method="post">
+        <p id="res_id">{{reservation_id}}</p>
+        <p id="res_date"> {{reservation_date_of_return}}</p>
         <input type="submit" value="Save">
     </form>
 {% endblock %}

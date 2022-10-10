@@ -25,19 +25,25 @@
 </div>
 </div>
 <div class="book_reserv">
-{% if book.books_in_stock > 0%}
-<input class="reserv_button" type="button" value="Забронировать" onclick="reservefunc()">
-<div id="reserve_id">
-    {%else%}
-<p class="nobook">Нет в наличии</p>
+{% if user.is_authenticated %}
+    {% if book.books_in_stock > 0%}
+        <input class="reserv_button" type="button" value="Забронировать" onclick="reservefunc()">
+        <input type="date" id="reserv_date" style="display: none;" >
+        <input type="button" value="OK" id="show" onclick="get_date()" style="display: none;">
+    {% else %}
+        <p class="nobook">Нет в наличии</p>
+    {% endif %}  
+{%else%}
+     <p class="authen_p"> Войдите или зарегистрируйтесь для бронирования книги </p>    
 {% endif%}
-</div>
     <dialog>
-        <p>
-            Вы забронировали книгу "{{book.book_name}}". Забрать книгу можно по адресу: г. Москва, ул. Улица, д.1 до (до даты возврата).
-            Номер бронирования (номер бронирования). Чтобы забрать книгу, назовите содруднику своё имя пользователя {{user.username}} или номер бронирования
+        <p id="dialog_text">
+            Вы забронировали книгу "{{book.book_name}}". Забрать книгу можно по адресу: г. Москва, ул. Улица, д.1 до <span id="return_date"></span>. 
+            Чтобы забрать книгу, назовите содруднику своё имя пользователя ({{user.username}}) или номер бронирования (<span id="res_id"></span>).
         </p>
-        <button id="close">Понятно</button>
+        <button id="close">Закрыть</button>
+        <a id='userresclose' href="{% url 'user' %}">Список бронирований </a> / 
+        <a id='catalogclose' href="{% url 'books' %}"> К списку книг</a>
     </dialog>
 </div>
 {% endblock %}

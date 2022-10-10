@@ -78,7 +78,3 @@ class ReservationForm(forms.ModelForm):
         model = models.Reservation
         fields = ['book', 'date_of_issue']
         widgets = {'date_of_issue': forms.DateInput(attrs={'type': 'datetime-local'})}
-    # first_name = forms.CharField(max_length=50)
-    # last_name=forms.CharField(max_length=50)
-    # phone_regex = RegexValidator(regex=r'(\+[7])|[8]\(?\d{3,4}\)?(((\d\-?){5,8})|((\d\ ?){7,8}))\d$', message="Номер телефона должен быть в формате: '+7(999)9999999'")
-    # phone_number = forms.CharField(validators=[phone_regex], max_length=14, label='Номер телефона')

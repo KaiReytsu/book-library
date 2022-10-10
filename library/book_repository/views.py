@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -8,10 +8,10 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
 from .forms import LoginForm, ReservationForm, SignUpForm
 from .models import Author, Book, Genre, Reservation
@@ -40,13 +40,29 @@ class LogIn(LoginView):
 class UserLogout(LogoutView):
     template_name = 'library/logout.html'
 
-class UserView(DetailView):
-    model= User
+class UserView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    redirect_field_name = 'login/'
+    model= Reservation
     template_name = 'library/user_page.html'
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['reservation'] = Reservation.objects.filter(Q(user = self.request.user.id)).order_by('date_of_issue')
+        return data
+    def post(self, request, *args, **kwargs):
+        data = request.body.decode('utf-8')
+        js_data = json.loads(data)
+        reservation = Reservation.objects.filter(id = js_data['id']).first()
+        if reservation.user.id == self.request.user.id:
+            reservation.delete()
+            book = Book.objects.filter(id = reservation.book.id).first()
+            book.books_in_stock = book.books_in_stock + 1
+            book.save()
 
 class BookList(ListView):
     model = Book
     template_name = 'library/book_list.html'
+    # TODO: пагинация для поиска
     paginate_by = 6
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('q')
@@ -74,16 +90,19 @@ class BookDetail(DetailView):
 
 
 class ReservationView(LoginRequiredMixin, CreateView):
-    print("HEY, WE ARE HERE")
     login_url = '/login/'
     form_class = ReservationForm
     model = Reservation
     template_name = 'library/reservationpage.html'
     def post(self, request, *args, **kwargs):
-        reservation = Reservation()
+        # TODO:Бронирование только авторизованными пользователями
         data = request.body.decode('utf-8')
         date = json.loads(data)
         book = Book.objects.filter(id = date['book_id']).first()
+        if len(Reservation.objects.filter(user = request.user, book = book).filter(~Q(status = Reservation.Status.CLOSED))) > 0:
+            js_data = {'res_status': 'not closed'}
+            return JsonResponse(js_data)
+        reservation = Reservation()
         reservation.book = book
         reservation.date_of_issue = date['date_of_issue']
         date_of_return = datetime.strptime(reservation.date_of_issue, '%Y-%m-%dT%H:%M:%S.%f%z')+ timedelta(days=10)
@@ -92,11 +111,8 @@ class ReservationView(LoginRequiredMixin, CreateView):
         reservation.save()
         book.books_in_stock = book.books_in_stock - 1
         book.save()
-        #return super().post(request, *args, **kwargs)
-
-# class LibrarianView(ListView):
-#     model = Reservation
-#     template_name = 'library/reservationlist.html'
+        js_data = {'reservation_id': reservation.hash, 'reservation_date_of_return': reservation.date_of_return.date()}
+        return JsonResponse(js_data)
 
 def start_page(request):
     book_count = Book.objects.all().count()

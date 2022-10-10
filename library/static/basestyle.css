@@ -29,11 +29,14 @@ li{
 }
 dialog{
   border-radius: 14px;
-  background: #fefefe;
-  width: 57%;
+  background: #e8e9eb;
+  width: 41%;
   }
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.8);
+}
+#userresclose, #catalogclose{
+  color: #252020;
 }
 #show, #close{
   border: 2px solid black;
@@ -134,7 +137,7 @@ dialog::backdrop {
   display: flex;
   justify-content: center;
 }
-.search_div{
+.search_div, .userpage{
   margin: 40px 10%;
   padding-top: 18px;
   display: flex;
@@ -260,7 +263,9 @@ dialog::backdrop {
     padding: 20px;
     background-color: #353232;
   }
-  /* TABS */
+ .authen_p{
+  font-size: 25px;
+ }
   
   h2.inactive {
     color: #cccccc;
@@ -270,9 +275,32 @@ dialog::backdrop {
     color: #0d0d0d;
     border-bottom: 2px solid #5fbae9;
   }
-  
-  
-  
+  .usernamediv{
+    margin: 40px;
+  }
+  .yesnobutton{
+    background-color: #252020;
+    font-size: 17px;
+    color: #c7c5c5;
+    margin: 1px;
+    padding: 4px 5px 4px 5px;
+    border-radius: 7px;
+    border: 2px solid #252020;
+  }
+  .delete_button{
+    background-color: #252020;
+    font-size: 23px;
+    color: #c7c5c5;
+    margin: 5px;
+    padding: 3px 4px 1px 5px;
+    border-radius: 7px;
+    border: 2px solid #252020;
+  }
+  .yesnobutton:hover, .delete_button:hover{
+    color: #0d0d0d;
+    background-color: #6881a8;
+    border: 2px solid #6881a8;
+  }
   /* FORM TYPOGRAPHY*/
   
   input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {

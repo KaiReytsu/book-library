@@ -1,10 +1,62 @@
 {% extends "base.html" %}
-{% block title %}Вход{% endblock %}
+{% block title %}{{user.username}}{% endblock %}
+{% load static %}
+{% block scripts %}
+    <script src="{% static 'userpage.js' %}">
+    </script>
+{% endblock %}
+{% block header %}
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="nav-link" href="{% url 'logout'%}">Выйти</a>
+        {% if user.is_superuser%}
+            <a class="nav-link" href="{% url 'admin:index' %}"> Страница администратора </a>
+        {% endif %}  
+        {% if user.is_active and user.is_staff and not user.is_superuser%}
+            <a class="nav-link" href="{% url 'admin:index' %}">Страница библиотекаря </a>   
+        {%endif%}
+            <a href="{% url 'books' %}"> Список книг </a> 
+        </nav>
+    </header>
+{% endblock header %}
 {% block content %}
-
 {% if user.is_authenticated %}
-    <p>Привет, {{ user.username }}</p>
-{% else %}
-<p>Ты тут?</p>
+    <div class="usernamediv">
+        <h1>{{ user.username }}</h1>
+    </div>
+    <div class="userpage">
+    {% if reservation %}
+    <div class="reservationtable">
+    <table class="table table-bordered">
+            <tr class="table-primary">
+                <th> Номер бронирования</th>
+                <th> Книга </th>
+                <th> Дата бронирования </th>
+                <th> Дата бронирование до/возврата</th>
+                <th> Статус бронирования </th>
+            </tr>
+    {% for res in reservation %}
+        <tr class="table-success">
+            <td>{{ res.hash }}</td>
+            <td>{{ res.book }}</td>
+            <td>{{ res.date_of_issue|date:'d M Y' }}</td>
+            <td>{{ res.date_of_return|date:'d M Y'}}</td>
+            <td>{{ res.status }}</td>
+            <td style="display: none;">{{ res.id }}</td>
+        </tr>
+    {% endfor %}
+     </table>
+     {% else %}
+     <p class="nobook">Нет бронирований</p>
+     {% endif %}
+    </div>
 {% endif %}
+    <dialog>
+        <p id="dialog_text">
+            Вы уверены, что хотите отменить бронирование?
+        </p>
+        <button id="yes" class = 'yesnobutton'>Да</button>
+        <button id="no" class = 'yesnobutton'>Нет</button>
+    </dialog>
+</div>
 {% endblock %}
