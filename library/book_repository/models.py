@@ -102,5 +102,7 @@ class Reservation(models.Model):
                                 str(self.date_of_return)
                                 ).encode('utf-8')).hexdigest()[-5:]
         return super().save(*args, **kwargs)
+    def __str__(self):
+        return self.hash
         
 User._meta.get_field('email')._unique = True

@@ -17,7 +17,6 @@ class BooksInline(admin.TabularInline):
     """Defines format of inline book insertion (used in AuthorAdmin)"""
     model = models.Book
 
-
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
     """Administration object for Author models.
@@ -58,12 +57,7 @@ class ReservationAdmin(admin.ModelAdmin):
      - filters that will be displayed in sidebar (list_filter)
      - grouping of fields into sections (fieldsets)
     """
-    search_fields = ['hash', 'user']
+    search_fields = ['hash']
     list_display = ('book', 'hash', 'status', 'user', 'date_of_issue', 'date_of_return')
     list_filter = ('status', 'date_of_issue', 'date_of_return')
-
-    fieldsets = (
-        ('Информация', {
-            'fields': ('book', 'status', 'date_of_issue', 'date_of_return', 'user')
-        }),
-    )
+    fields = ('book', 'status', 'date_of_issue', 'date_of_return', 'user')
