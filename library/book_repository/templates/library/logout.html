@@ -1,17 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Выход{% endblock %}
-{% block content %}
+{% block title %}Выход{% endblock %} 
+{% block content%}
 <div class="blockcontent">
-
-    <div class="basedir">    
-        <p>Вы вышли</p> 
-        <p> К 
-            <a class="latest_book_a" href="{% url 'books'%}">
-                списку книг
-            </a>
-        </p>
-    </div>           
+  <div class="basedir">
+    <p>Вы вышли</p>
+    <p>
+      К <a class="latest_book_a" href="{% url 'books'%}"> списку книг </a>
+    </p>
+  </div>
 </div>
 {% endblock %}
-{% block footer %}
-{% endblock footer %}

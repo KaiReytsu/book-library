@@ -1,51 +1,61 @@
-{% extends "base.html" %}
-{% block title %}{{book.book_name}}{% endblock %}
-{% load static %}
+{% extends "base.html" %} 
+{% block title %}{{book.book_name}}{% endblock %} 
+{%load static %} 
 {% block scripts %}
 <script src="{% static 'reservation.js' %}">
 </script>
-{% endblock %}
+{% endblock %} 
 {% block content %}
 <div class="book_table">
-<h1 class="book_name">{{ book.book_name }}</h1>
-<div class="book_info">
-<img class="book_img" src="{{book.book_image.url}}" alt="img">
-<div class="book_ditail">
-<p><strong>Автор: </strong>{{ book.author }}</p>
-<p><strong>Жанр: </strong>{{ book.genre.all|join:", " }}</p>
-<p><strong>Год издания: </strong>{{ book.publication_year }}</p>
-<p><strong>Язык издания: </strong>{{ book.publication_language }}</p>
-<p><strong>Издательство: </strong>{{ book.publisher }}</p>
-<p><strong>Количество экземпляров: </strong>{{ book.books_in_stock}}</p>
-</div>
-
-</div>
-<div class="book_description">
-<p>{{ book.book_description }}</p>    
-</div>
+  <h1 class="book_name">{{ book.book_name }}</h1>
+  <div class="book_info">
+    <img class="book_img" src="{{book.book_image.url}}" alt="img" />
+    <div class="book_ditail">
+      <p><strong>Автор: </strong>{{ book.author }}</p>
+      <p><strong>Жанр: </strong>{{ book.genre.all|join:", " }}</p>
+      <p><strong>Год издания: </strong>{{ book.publication_year }}</p>
+      <p><strong>Язык издания: </strong>{{ book.publication_language }}</p>
+      <p><strong>Издательство: </strong>{{ book.publisher }}</p>
+      <p><strong>Количество экземпляров: </strong>{{ book.books_in_stock}}</p>
+    </div>
+  </div>
+  <div class="book_description">
+    <p>{{ book.book_description }}</p>
+  </div>
 </div>
 <div class="book_reserv">
-{% if user.is_authenticated %}
+  {% if user.is_authenticated %} 
     {% if book.books_in_stock > 0%}
-        <input class="reserv_button" type="button" value="Забронировать" onclick="reservefunc()">
-        <input type="date" id="reserv_date" style="display: none;" >
-        <input type="button" value="OK" id="show" onclick="get_date()" style="display: none;">
+      <input
+          class="reserv_button"
+          type="button"
+          value="Забронировать"
+          onclick="reservefunc()"
+      />
+      <input type="date" id="reserv_date" style="display: none" />
+      <input
+        type="button"
+        value="OK"
+        id="show"
+        onclick="get_date()"
+        style="display: none"
+      />
     {% else %}
-        <p class="nobook">Нет в наличии</p>
-    {% endif %}  
-{%else%}
-     <p class="authen_p"> Войдите или зарегистрируйтесь для бронирования книги </p>    
-{% endif%}
+      <p class="nobook">Нет в наличии</p>
+    {% endif %} 
+  {%else%}
+    <p class="authen_p">Войдите или зарегистрируйтесь для бронирования книги</p>
+  {% endif%}
     <dialog>
-        <p id="dialog_text">
-            Вы забронировали книгу "{{book.book_name}}". Забрать книгу можно по адресу: г. Москва, ул. Улица, д.1 до <span id="return_date"></span>. 
-            Чтобы забрать книгу, назовите содруднику своё имя пользователя ({{user.username}}) или номер бронирования (<span id="res_id"></span>).
-        </p>
-        <button id="close">Закрыть</button>
-        <a id='userresclose' href="{% url 'user' %}">Список бронирований </a> / 
-        <a id='catalogclose' href="{% url 'books' %}"> К списку книг</a>
+      <p id="dialog_text">
+        Вы забронировали книгу "{{book.book_name}}". Забрать книгу можно по
+        адресу: г. Москва, ул. Улица, д.1 до <span id="return_date"></span>. Чтобы
+        забрать книгу, назовите содруднику своё имя пользователя
+        ({{user.username}}) или номер бронирования (<span id="res_id"></span>).
+      </p>
+      <button id="close">Закрыть</button>
+      <a id="userresclose" href="{% url 'user' %}">Список бронирований </a> /
+      <a id="catalogclose" href="{% url 'books' %}"> К списку книг</a>
     </dialog>
 </div>
 {% endblock %}
-{% block footer %}
-{% endblock footer %}

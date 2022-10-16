@@ -1,37 +1,38 @@
-{% extends "base.html" %}
-{% block title %}Регистрация{% endblock %}
-{% load static %}
+{% extends "base.html" %} 
+{% block title %}Регистрация{% endblock %} 
+{% load static %} 
 {% block styles%}
-    <link rel="stylesheet" 
-          type="text/css" 
-          href="{% static 'loginstyle.css' %}">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          id="bootstrap-css">
-{% endblock %}
-{% block header %}
-{% endblock header %}
+<link rel="stylesheet" type="text/css" href="{% static 'loginstyle.css' %}" />
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+{% endblock %} 
+{% block header %} 
+{% endblock header %} 
 {% block content %}
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-          <!-- Tabs Titles -->
-      
-          <!-- Icon -->
-          <div class="fadeIn first">
-            <img class="reg_login" src="../../../static/newuser.png" id="icon" alt="Lib Icon" />
-          </div>
-          <form method="post" class="login_form">                             
-            {{ form }}
-            {% csrf_token %}
-            <input type="submit" class="fadeIn fourth" value="Зарегистрироваться">
-          </form>
-          <div id="formFooter">
-            <a class="underlineHover" href="{% url 'login' %}">Вход</a> /
-            <a class="underlineHover" href="{% url 'books' %}">Список книг</a>
-          </div>
-      
-        </div>
-      </div>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img
+        class="reg_login"
+        src="../../../static/newuser.png"
+        id="icon"
+        alt="Lib Icon"
+      />
+    </div>
+    <form method="post" class="login_form">
+      {{ form }} {% csrf_token %}
+      <input type="submit" class="fadeIn fourth" value="Зарегистрироваться" />
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="{% url 'login' %}">Вход</a> /
+      <a class="underlineHover" href="{% url 'books' %}">Список книг</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
-{% block footer %}
-{% endblock footer %}
